@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: moving-out-api
+  config:
+    activate:
+      on-profile: default
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: system
+    password: oracle
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle10gDialect
+
+##############################################
+#  Springboot admin
+############################################
+  boot:
+    admin:
+      client:
+        url: http://localhost:8090
+        instance:
+          service-url: http://localhost:8080
+##############################################
+#  Spring boot actuator
+############################################
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*" # TODO : Security 설정 적용 후 해당 속성 조정 필요.
+    health:
+      show-details: always
