@@ -1,6 +1,8 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
-    name: moving-out-domain
+    name: moving-out-common
   config:
     activate:
       on-profile: default
