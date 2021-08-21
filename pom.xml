@@ -20,7 +20,7 @@
     </properties>
 
     <modules>
-        <module>moving-out-domain</module>
+        <module>moving-out-common</module>
         <module>moving-out-api</module>
         <module>moving-out-admin</module>
     </modules>

@@ -4,7 +4,7 @@
  * Created by injeahwang on 2021-08-21
  * ===============================================================
  */
-package com.suwon.toy.moving.out.domain;
+package com.suwon.toy.moving.out.common;
 
-public interface MovingOutDomain {
+public interface MovingOutCommon {
 }
