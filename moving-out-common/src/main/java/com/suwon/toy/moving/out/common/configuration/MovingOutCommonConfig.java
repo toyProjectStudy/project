@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackageClasses = {MovingOutCommon.class})
 @EntityScan(basePackageClasses = {MovingOutCommon.class})
 @SpringBootConfiguration
-@ConfigurationPropertiesScan( basePackageClasses = {MovingOutCommon.class})
+@ConfigurationPropertiesScan( basePackages = {"com.suwon.toy"})
 @EnableAutoConfiguration
 @EnableJpaRepositories(
         basePackageClasses = {MovingOutCommon.class}
