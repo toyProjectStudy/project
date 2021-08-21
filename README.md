@@ -24,6 +24,12 @@ moving-out(root)
 
 
 ## Docker로 Oracle DB 실행하기
+
+> #### 로컬에 Oracle Express 서버 환경이 설치가 되신 분이라면 이 단계를 건너 뛰어도 상관 없습니다.
+> * 설치 가이드(생활코딩-Oracle) : https://opentutorials.org/course/3885/26280
+
+___
+
 1. 각자 로컬 OS 환경에 맞는 Docker를 설치합니다.
     * windows10에서 Docker 설치하기 가이드 : https://www.lainyzine.com/ko/article/a-complete-guide-to-how-to-install-docker-desktop-on-windows-10/
 
