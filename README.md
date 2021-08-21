@@ -11,9 +11,9 @@
 ```
 moving-out(root)
   │ 
-  └── moving-out-domain
+  └── moving-out-common
   │    - 모듈간 공통적인 기능(ex. DB 저장) 
-  |    - 공통적인 비즈니스 처리 로직 
+  |    - 공통적인 비즈니스 처리 로직
   └── moving-out-api
   │    - 실제 Front-End와 API연동 및 서비스에 필요한 비즈니스 로직
   └── moving-out-admin

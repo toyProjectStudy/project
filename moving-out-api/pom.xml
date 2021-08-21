@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>com.suwon.toy</groupId>
-            <artifactId>moving-out-domain</artifactId>
+            <artifactId>moving-out-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

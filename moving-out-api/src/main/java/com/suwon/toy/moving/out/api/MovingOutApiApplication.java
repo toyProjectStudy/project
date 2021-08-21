@@ -1,11 +1,11 @@
 package com.suwon.toy.moving.out.api;
 
-import com.suwon.toy.moving.out.domain.configuration.MovingOutDomainConfig;
+import com.suwon.toy.moving.out.common.configuration.MovingOutCommonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@Import(MovingOutDomainConfig.class)
+@Import(MovingOutCommonConfig.class)
 @SpringBootApplication
 public class MovingOutApiApplication {
 
