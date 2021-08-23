@@ -49,3 +49,50 @@ docker-compose up -d
 ```
 docker-compose down -v
 ```
+
+## 인증 인가 기능 추가
+
+### 프로그램 로딩 전 아래 쿼리 실행
+* JWT 인증 기능 추가로 로컬 테스트시 프로그램 로딩후 아래 쿼리를 먼저 실행해주세요
+  * 유저 권한(ROLE) 정보 초기화 입니다. 
+```sql
+INSERT INTO TB_AUTHORITY (AUTHORITY_NAME) values ('ROLE_USER');
+INSERT INTO TB_AUTHORITY (AUTHORITY_NAME) values ('ROLE_ADMIN');
+commit;
+```
+
+### 아래와 같은 순서로
+1. 가입 API
+* POST / http://localhost:8080/api/signup
+
+```json
+{
+	"userId":"test1",
+	"password":"1234",
+	"username":"jay",
+	"address":null,
+	"phoneNumber":"010000000"
+}
+```
+
+2. 로그인 API
+* POST / http://localhost:8080/api/authenticate
+```
+{
+	"userId":"test1",
+	"password":"1234"
+}
+```
+
+* 응답으로 token을 받는다.
+
+응답 예시
+```json
+{
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2Mjk3MTMzMzZ9.0VXmNvaEZJQoOdWaJ_m1JxNkz5tv5vWZfXAUrbOqKewhpi71FqNJjgsbRd44XBbxAgrfmZCGSoAlhYRlxIdkHA"
+}
+```
+
+3. 로그인 이후
+* GET / http://localhost:8080/api/user
+헤더에 Bearer 토큰으로 2.에서 응답받은 JWT 토큰을 요청에 넣어서 보낸다.
