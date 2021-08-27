@@ -53,13 +53,30 @@ docker-compose down -v
 ## 인증 인가 기능 추가
 
 ### 프로그램 로딩 전 아래 쿼리 실행
-* JWT 인증 기능 추가로 로컬 테스트시 프로그램 로딩후 아래 쿼리를 먼저 실행해주세요
-  * 유저 권한(ROLE) 정보 초기화 입니다. 
-```sql
-INSERT INTO TB_AUTHORITY (AUTHORITY_NAME) values ('ROLE_USER');
-INSERT INTO TB_AUTHORITY (AUTHORITY_NAME) values ('ROLE_ADMIN');
-commit;
+* ~~JWT 인증 기능 추가로 로컬 테스트시 프로그램 로딩후 아래 쿼리를 먼저 실행해주세요~~
+  * ~~유저 권한(ROLE) 정보 초기화 입니다.~~
+
+* ```moving-out-api``` 앱 기동시 자동으로 기본 권한을 DB에 셋업하도록 임시 컴포넌트를 구현(추후 삭제 예정)
+
+```java
+/**TODO : DB 자동 로컬 환경구성이 완료되면(초기 Data Initilization) 삭제하기
+ */
+@Component
+public class TemporalAuthSetupRunner implements ApplicationRunner {
+
+    @PersistenceContext
+    EntityManager em;
+
+    @Override
+    @Transactional
+    public void run(ApplicationArguments args) throws Exception {
+        // 임시로, App이 로드되면서 기본 권한을 Insert 한다.
+        em.persist(new Authority(AuthorityRole.USER.getValue()));
+        em.persist(new Authority(AuthorityRole.ADMIN.getValue()));
+    }
+}
 ```
+
 
 ### 아래와 같은 순서로
 1. 가입 API
