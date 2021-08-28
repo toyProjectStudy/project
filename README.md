@@ -113,3 +113,5 @@ public class TemporalAuthSetupRunner implements ApplicationRunner {
 3. 로그인 이후
 * GET / http://localhost:8080/api/user
 헤더에 Bearer 토큰으로 2.에서 응답받은 JWT 토큰을 요청에 넣어서 보낸다.
+
+수정
