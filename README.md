@@ -1,10 +1,16 @@
 # Moving-Out
 
 ## Application 환경정보
+
+**ServerSide**
 * Java 11 ver
 * Spring boot 2.5.4
 * maven
 * Oracle
+
+**FrontEnd**
+* Typescript(javascript)
+* vue 2.X
 
 ## 모듈 구성
 * 아래와 같이 Multi 모듈로 구성하였습니다.
@@ -14,10 +20,15 @@ moving-out(root)
   └── moving-out-common
   │    - 모듈간 공통적인 기능(ex. DB 저장) 
   |    - 공통적인 비즈니스 처리 로직
+       - 실행 할 수 있는 프로젝트가 아닙니다.
   └── moving-out-api
   │    - 실제 Front-End와 API연동 및 서비스에 필요한 비즈니스 로직
   └── moving-out-admin
-       - App 모니터링 및 설정 변경에 필요한 APM 서버
+  │    - App 모니터링 및 설정 변경에 필요한 APM 서버
+  └── moving-out-front
+       - front-end 구현을 위한 소스 프로젝트
+       - vue + typescript
+       
 ```
 
 * 추후 Spring-batch 도입이 필요한 경우 별도 모듈로 추가 예정
@@ -113,5 +124,3 @@ public class TemporalAuthSetupRunner implements ApplicationRunner {
 3. 로그인 이후
 * GET / http://localhost:8080/api/user
 헤더에 Bearer 토큰으로 2.에서 응답받은 JWT 토큰을 요청에 넣어서 보낸다.
-
-수정
