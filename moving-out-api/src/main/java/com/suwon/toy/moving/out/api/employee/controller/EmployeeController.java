@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.suwon.toy.moving.out.common.common.annotation.security.ApplyAdminRole;
+import com.suwon.toy.moving.out.common.common.annotation.security.ApplyUserAdminRole;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -31,20 +33,20 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employee/list")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@ApplyUserAdminRole
     public ResponseEntity<List<Employee>> getEmployeeInfoList(){
 		return ResponseEntity.ok(employeeService.getEmployeeInfoList());
 	}
 	
 	@GetMapping("/employee/{empName}")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@ApplyUserAdminRole
 	public ResponseEntity<List<Employee>> getEmployeeInfo(@PathVariable String empName){
 		Pageable pageable = PageRequest.of(0,3);
 		return ResponseEntity.ok(employeeService.getEmployeeInfo(empName,pageable));
 	}
 
 	@PostMapping("/employee/insert")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApplyAdminRole
 	public ResponseEntity<Employee> insertEmployee(@Valid @RequestBody Employee employeeDto){
 		return ResponseEntity.ok(employeeService.insertEmployee(employeeDto));
 	}

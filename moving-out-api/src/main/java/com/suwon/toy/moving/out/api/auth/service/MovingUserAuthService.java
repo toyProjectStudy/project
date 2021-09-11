@@ -8,6 +8,8 @@ package com.suwon.toy.moving.out.api.auth.service;
 
 
 import com.suwon.toy.moving.out.api.auth.dto.UserDto;
+import com.suwon.toy.moving.out.api.auth.exception.UserAuthErrorCode;
+import com.suwon.toy.moving.out.api.auth.exception.UserAuthException;
 import com.suwon.toy.moving.out.api.auth.util.SecurityUtil;
 import com.suwon.toy.moving.out.common.movinguser.Authority;
 import com.suwon.toy.moving.out.common.movinguser.MovingUser;
@@ -32,7 +34,7 @@ public class MovingUserAuthService {
     @Transactional
     public MovingUser signup(UserDto userDto) {
         if(userRepository.findOneWithAuthoritiesByUserId(userDto.getUserId()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw UserAuthException.build(UserAuthErrorCode.ALREADY_REGISTERD_USER); // 이미 가입된 유저입니다.
         }
 
         Authority authority = new Authority();

@@ -9,6 +9,7 @@ package com.suwon.toy.moving.out.api.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suwon.toy.moving.out.api.auth.dto.TokenDto;
 import com.suwon.toy.moving.out.common.movinguser.MovingUser;
+import com.suwon.toy.moving.out.common.movinguser.MovingUserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -40,6 +41,9 @@ public class UserControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    MovingUserRepository userRepository;
 
     @Order(1)
     @Test
@@ -80,5 +84,39 @@ public class UserControllerTest {
     public void getMyUserInfo_ADmin_success() throws Exception {
         mockMvc.perform(get("/api/user/test1")).andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Order(4)
+    @Test
+    @DisplayName("중복된 회원 등록 시 UserAuthException을 Throw 되고 이를, 적절한 Error 메시지로 Client에 전달한다.")
+    public void signup_api_fail_duplicated() throws Exception{
+        userRepository.deleteAll(); // 테스트 전 DB 데이터 정보를 지워준다.
+        userRepository.flush();
+
+        mockMvc.perform(post("/api/signup")
+                .content("{\n" +
+                        "\t\"userId\":\"test1\",\n" +
+                        "\t\"password\":\"1234\",\n" +
+                        "\t\"username\":\"jay\",\n" +
+                        "\t\"address\":null,\n" +
+                        "\t\"phoneNumber\":\"010000000\"\n" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+        .andExpect(status().isOk()); // 첫 가입은 OK
+
+        mockMvc.perform(post("/api/signup")
+                    .content("{\n" +
+                            "\t\"userId\":\"test1\",\n" +
+                            "\t\"password\":\"1234\",\n" +
+                            "\t\"username\":\"jay\",\n" +
+                            "\t\"address\":null,\n" +
+                            "\t\"phoneNumber\":\"010000000\"\n" +
+                            "}")
+                    .contentType(MediaType.APPLICATION_JSON)
+            ).andDo(print())
+            .andExpect(status().isBadRequest()) // 400 BadRequest
+            .andExpect(jsonPath("$.errorCode").exists())
+            .andExpect(jsonPath("$.errorMessage").exists());
     }
 }

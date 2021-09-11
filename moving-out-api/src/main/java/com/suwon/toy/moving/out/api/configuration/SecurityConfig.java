@@ -9,6 +9,7 @@ package com.suwon.toy.moving.out.api.configuration;
 import com.suwon.toy.moving.out.api.auth.util.jwt.JwtAccessDeniedHandler;
 import com.suwon.toy.moving.out.api.auth.util.jwt.JwtAuthenticationEntryPoint;
 import com.suwon.toy.moving.out.api.auth.util.jwt.TokenProvider;
+import com.suwon.toy.moving.out.common.movinguser.AuthorityRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,14 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Override
-//    public void configure(WebSecurity web){
-//        web.ignoring()
-//                .antMatchers(
-//                        "/h2-console/**",
-//                        "/favicon.ico"
-//                );
-//    }
+    @Override
+    public void configure(WebSecurity web){
+        web.ignoring()
+                .antMatchers(
+                        "/favicon.ico"
+                );
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -57,11 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
 
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
@@ -75,9 +70,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/hello").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/signup").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+//                .antMatchers("/api/employee/insert").hasRole("ADMIN") // @PreAuthorize로 권한 설정.
                 .anyRequest().authenticated()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig(tokenProvider))
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler) // EnableGlobalMethodSecurity 이 활성화된 상태에서 해당 부분은 무용지믈로 보임.
+
+
+                ;
     }
 }
