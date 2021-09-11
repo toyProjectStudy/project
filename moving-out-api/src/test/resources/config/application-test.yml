@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+###########################################
+# JWT
+###########################################
+jwt:
+  header: Authorization
+  secret: c3V3b24tdG95LXByb2plY3Qtand0LXRva2VuLXN1d29uLXRveS1wcm9qZWN0LWp3dC10b2tlbi1zdXdvbi10b3ktcHJvamVjdC1qd3QtdG9rZW4tc3V3b24tdG95LXByb2plY3Qtand0LXRva2VuLTEyMw==
