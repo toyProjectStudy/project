@@ -1,6 +1,5 @@
 package com.suwon.toy.moving.out.api.auth.exception;
 
-import com.suwon.toy.moving.out.common.common.exception.CommonErrorCode;
 import com.suwon.toy.moving.out.common.common.exception.ErrorCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
