@@ -21,6 +21,23 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+
+        String reqException = (String) request.getAttribute("exception");
+        if(reqException.equals(JwtErrorCode.JWT_EXPIRED.getValue())){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print("{\"errorMessage\":\"JWT Token Was Expired!\"}");
+        } else if(reqException.equals(JwtErrorCode.JWT_INVALID.getValue())){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print("{\"errorMessage\":\"InValid JWT Token!\"}");
+        }
+        else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+
+
     }
 }

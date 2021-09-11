@@ -6,7 +6,9 @@
  */
 package com.suwon.toy.moving.out.common.employee;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -29,6 +31,8 @@ import java.time.LocalDateTime;
         initialValue=1, //시작값
         allocationSize=1 //메모리를 통해 할당할 범위 사이즈
 )
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
 
     @Id

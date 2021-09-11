@@ -38,13 +38,6 @@ public class MovingUserAuthService {
         Authority authority = new Authority();
         authority.setAuthorityName("ROLE_USER");
 
-//        MovingUser user = MovingUser.builder()
-//                .username(userDto.getUsername())
-//                .password(passwordEncoder.encode(userDto.getPassword()))
-//                .nickname(userDto.getNickname())
-//                .authoritySet(Collections.singleton(authority))
-//                .activated(true)
-//                .build();
 
         MovingUser user = new MovingUser();
         user.setUserId(userDto.getUserId());

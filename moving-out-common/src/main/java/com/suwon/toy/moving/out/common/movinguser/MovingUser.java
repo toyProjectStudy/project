@@ -6,7 +6,9 @@
  */
 package com.suwon.toy.moving.out.common.movinguser;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -22,6 +24,8 @@ import java.util.Set;
 @Table(name="TB_USER")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MovingUser {
 
     @Id

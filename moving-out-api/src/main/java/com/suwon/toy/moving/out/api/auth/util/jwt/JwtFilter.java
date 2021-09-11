@@ -6,6 +6,10 @@
  */
 package com.suwon.toy.moving.out.api.auth.util.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -38,12 +42,24 @@ public class JwtFilter extends GenericFilterBean {
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 
-        if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            logger.debug("Security context에 '{}' 인증 정보를 저장했습니다, uri :  '{}'", authentication.getName(), requestURI);
-        } else {
-            logger.debug("유효한 JWT 토큰이 없습니다. uri : {}", requestURI);
+        try{
+            if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+                Authentication authentication = tokenProvider.getAuthentication(jwt);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                logger.debug("Security context에 '{}' 인증 정보를 저장했습니다, uri :  '{}'", authentication.getName(), requestURI);
+            } else {
+                logger.debug("유효한 JWT 토큰이 없습니다. uri : {}", requestURI);
+            }
+        } catch(SecurityException | MalformedJwtException e){
+            logger.error("잘못된 JWT 서명입니다.");
+            httpServletRequest.setAttribute("exception", JwtErrorCode.JWT_INVALID.getValue());
+        } catch(ExpiredJwtException e) {
+            logger.error("만료된 JWT 토큰입니다.");
+            httpServletRequest.setAttribute("exception", JwtErrorCode.JWT_EXPIRED.getValue());
+        } catch(UnsupportedJwtException e) {
+            logger.error("지원되지 않는 JWT토큰입니다.");
+        } catch(IllegalArgumentException e) {
+            logger.error("JWT 토큰이 잘못되었습니다.");
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
