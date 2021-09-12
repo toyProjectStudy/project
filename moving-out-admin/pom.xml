@@ -18,6 +18,13 @@
         <spring-boot.version>2.5.4</spring-boot.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.suwon.toy</groupId>
+            <artifactId>moving-out-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>

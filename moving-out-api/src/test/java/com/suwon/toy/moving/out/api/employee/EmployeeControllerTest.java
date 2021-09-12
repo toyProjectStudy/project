@@ -97,11 +97,17 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    @DisplayName("Admin 권한이 있는 사용자의 경우 신규 구성원 등록이 되어야 합니다.")
-    @WithMockUser(username = "tester", roles = "USER")
+    @DisplayName("Admin 권한이 있는 사용자의 경우 신규 직원 등록이 제한됩니다 - 접근 권한 없음.")
+    @WithMockUser(username = "tester", roles = {"USER"})
     public void insertNewEmployee_not_permitted_user() throws Exception {
         given(employeeService.getEmployeeInfo(any(),any())).willReturn(testEmployeeList);
 
+        /**
+         *  Method Security 적용이 되면, SecurityConfig에서 설정한 AccessDeniedHandler를 타지 않고,
+         *  ControllerAdvice로 등록한 ExceptionHandler를 타게 된다.
+         *
+         *  따라서, @PreAuthorized로 API 접근제어를 하게 되는 경우 ExceptionHandler에 AccessDeniedException Handler가 필요하다.
+         */
         mockMvc.perform(post("/api/employee/insert")
                         .content(testEmployee)
                         .contentType(MediaType.APPLICATION_JSON)

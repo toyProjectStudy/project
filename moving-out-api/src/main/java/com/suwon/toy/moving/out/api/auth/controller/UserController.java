@@ -9,6 +9,8 @@ package com.suwon.toy.moving.out.api.auth.controller;
 
 import com.suwon.toy.moving.out.api.auth.dto.UserDto;
 import com.suwon.toy.moving.out.api.auth.service.MovingUserAuthService;
+import com.suwon.toy.moving.out.common.common.annotation.security.ApplyAdminRole;
+import com.suwon.toy.moving.out.common.common.annotation.security.ApplyUserAdminRole;
 import com.suwon.toy.moving.out.common.movinguser.MovingUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,13 +41,13 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @ApplyUserAdminRole
     public ResponseEntity<MovingUser> getMyUserInfo() {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
     }
 
     @GetMapping("/user/{userId}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApplyAdminRole
     public ResponseEntity<MovingUser> getUserInfo(@PathVariable String userId) {
         return ResponseEntity.ok(userService.getUserWithAuthorities(userId).get());
     }

@@ -37,7 +37,7 @@ public class JwtFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, RuntimeException{
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
@@ -60,6 +60,8 @@ public class JwtFilter extends GenericFilterBean {
             logger.error("지원되지 않는 JWT토큰입니다.");
         } catch(IllegalArgumentException e) {
             logger.error("JWT 토큰이 잘못되었습니다.");
+        }catch(Exception e){
+            logger.error(e.getMessage());
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

@@ -6,8 +6,6 @@
  */
 package com.suwon.toy.moving.out.api.configuration;
 
-
-
 import com.suwon.toy.moving.out.api.auth.util.jwt.JwtFilter;
 import com.suwon.toy.moving.out.api.auth.util.jwt.TokenProvider;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
