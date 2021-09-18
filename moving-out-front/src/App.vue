@@ -1,36 +1,27 @@
 <template>
-  <div id="app">
-    <CommonNavBar/>
-    <Main/>
-<!--    <div id="nav">-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/about">About</router-link>-->
-<!--    </div>-->
-<!--    <router-view/>-->
-  </div>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
 </template>
 
-
 <script lang="ts">
-import Vue from "vue";
-import Main from "./components/Main.vue";
-import CommonNavBar from "./components/CommonNavBar.vue";
+import { defineComponent } from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
 
-
-Vue.config.productionTip = false
-
-export default Vue.extend({
-  components:{
-    CommonNavBar,
-    Main
-  }
+export default defineComponent({
+  name: "App",
+  components: {
+    HelloWorld,
+  },
 });
 </script>
 
 <style>
 #app {
-  margin: 10px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
-
-
 </style>
