@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.suwon.toy.moving.out.common.common.annotation.security.ApplyAdminRole;
 import com.suwon.toy.moving.out.common.common.annotation.security.ApplyUserAdminRole;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,15 @@ public class EmployeeController {
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
-	
+
+	@ApiOperation(value = "직원 목록 조회(User, Admin 공통)")
 	@GetMapping("/employee/list")
 	@ApplyUserAdminRole
     public ResponseEntity<List<Employee>> getEmployeeInfoList(){
 		return ResponseEntity.ok(employeeService.getEmployeeInfoList());
 	}
-	
+
+	@ApiOperation(value = "직원 성명으로 조회(User, Admin 공통)")
 	@GetMapping("/employee/{empName}")
 	@ApplyUserAdminRole
 	public ResponseEntity<List<Employee>> getEmployeeInfo(@PathVariable String empName){
@@ -45,6 +48,7 @@ public class EmployeeController {
 		return ResponseEntity.ok(employeeService.getEmployeeInfo(empName,pageable));
 	}
 
+	@ApiOperation(value = "직원 등록(Admin 전용)")
 	@PostMapping("/employee/insert")
     @ApplyAdminRole
 	public ResponseEntity<Employee> insertEmployee(@Valid @RequestBody Employee employeeDto){
