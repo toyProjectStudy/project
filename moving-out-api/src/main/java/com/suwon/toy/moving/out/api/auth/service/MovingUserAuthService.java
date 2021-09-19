@@ -60,6 +60,7 @@ public class MovingUserAuthService {
 
     @Transactional(readOnly = true)
     public Optional<MovingUser> getMyUserWithAuthorities() {
+        // SecurityContext에서 User 정보를 받아 읽어온다.
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUserId);
     }
 }

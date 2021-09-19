@@ -61,6 +61,8 @@ docker-compose up -d
 docker-compose down -v
 ```
 
+---
+
 ## 인증 인가 기능 추가
 
 ### 프로그램 로딩 전 아래 쿼리 실행
@@ -124,3 +126,9 @@ public class TemporalAuthSetupRunner implements ApplicationRunner {
 3. 로그인 이후
 * GET / http://localhost:8080/api/user
 헤더에 Bearer 토큰으로 2.에서 응답받은 JWT 토큰을 요청에 넣어서 보낸다.
+
+---
+
+## Swagger-ui 
+
+* http://localhost:8080/swagger-ui/index.html

@@ -7,16 +7,11 @@
 package com.suwon.toy.moving.out.api.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suwon.toy.moving.out.api.auth.dto.TokenDto;
+import com.suwon.toy.moving.out.common.configuration.EnableMockMvc;
 import com.suwon.toy.moving.out.common.movinguser.MovingUser;
 import com.suwon.toy.moving.out.common.movinguser.MovingUserRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -28,10 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@EnableMockMvc
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserControllerTest {
@@ -54,7 +50,7 @@ public class UserControllerTest {
                                 "\t\"userId\":\"test1\",\n" +
                                 "\t\"password\":\"1234\",\n" +
                                 "\t\"username\":\"jay\",\n" +
-                                "\t\"address\":null,\n" +
+                                "\t\"address\":\"사랑시 고백구 행복동\",\n" +
                                 "\t\"phoneNumber\":\"010000000\"\n" +
                                 "}")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -71,10 +67,11 @@ public class UserControllerTest {
     @Order(2)
     @Test
     @DisplayName("인증된 유저에 대한 유저 정보가 조회 되어야 합니다.")
-    @WithMockUser(username = "test1", roles={"USER"})
+    @WithMockUser(username = "test1", roles="USER")
     public void getMyUserInfo_success() throws Exception {
         mockMvc.perform(get("/api/user")).andDo(print())
                 .andExpect(status().isOk());
+//                .andExpect();
     }
 
     @Order(3)

@@ -11,6 +11,7 @@ import com.suwon.toy.moving.out.api.auth.dto.TokenDto;
 import com.suwon.toy.moving.out.api.auth.dto.UserDto;
 import com.suwon.toy.moving.out.api.auth.service.MovingUserAuthService;
 import com.suwon.toy.moving.out.api.auth.util.jwt.TokenProvider;
+import com.suwon.toy.moving.out.common.configuration.EnableMockMvc;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@EnableMockMvc
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TokenExceptionTest {
@@ -77,7 +78,7 @@ public class TokenExceptionTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.token").exists());
 
         String str = result.andReturn().getResponse().getContentAsString();
@@ -110,7 +111,7 @@ public class TokenExceptionTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.token").exists());
 
         String str = result.andReturn().getResponse().getContentAsString();

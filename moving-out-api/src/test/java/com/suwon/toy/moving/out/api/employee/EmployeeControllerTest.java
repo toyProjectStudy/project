@@ -6,24 +6,17 @@
  */
 package com.suwon.toy.moving.out.api.employee;
 
-import com.suwon.toy.moving.out.api.configuration.SecurityConfig;
-import com.suwon.toy.moving.out.api.employee.controller.EmployeeController;
 import com.suwon.toy.moving.out.api.employee.service.EmployeeService;
+import com.suwon.toy.moving.out.common.configuration.EnableMockMvc;
 import com.suwon.toy.moving.out.common.employee.Employee;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -38,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@EnableMockMvc
 @ActiveProfiles("test")
 public class EmployeeControllerTest {
 
@@ -69,7 +62,7 @@ public class EmployeeControllerTest {
 
         mockMvc.perform(get("/api/employee/list")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"));
+                .andExpect(content().contentType("application/json;charset=UTF-8"));
     }
 
     @Test
@@ -80,7 +73,7 @@ public class EmployeeControllerTest {
 
         mockMvc.perform(get("/api/employee/anyone")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"));
+                .andExpect(content().contentType("application/json;charset=UTF-8"));
     }
 
     @Test

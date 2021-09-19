@@ -12,6 +12,9 @@ import com.suwon.toy.moving.out.api.auth.service.MovingUserAuthService;
 import com.suwon.toy.moving.out.common.common.annotation.security.ApplyAdminRole;
 import com.suwon.toy.moving.out.common.common.annotation.security.ApplyUserAdminRole;
 import com.suwon.toy.moving.out.common.movinguser.MovingUser;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ApiOperation(value = "신규 가입(계정 가입)")
     @PostMapping("/signup")
     public ResponseEntity<MovingUser> signup(
             @Valid @RequestBody UserDto userDto
@@ -40,12 +44,14 @@ public class UserController {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
+    @ApiOperation(value = "유저 정보 조회(로그인한 User)")
     @GetMapping("/user")
     @ApplyUserAdminRole
     public ResponseEntity<MovingUser> getMyUserInfo() {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
     }
 
+    @ApiOperation(value = "UserId로 사용자 조회(Admin 전용)")
     @GetMapping("/user/{userId}")
     @ApplyAdminRole
     public ResponseEntity<MovingUser> getUserInfo(@PathVariable String userId) {
