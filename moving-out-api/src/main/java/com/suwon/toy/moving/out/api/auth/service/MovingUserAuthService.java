@@ -48,6 +48,7 @@ public class MovingUserAuthService {
         user.setPhone(userDto.getPhoneNumber());
         user.setAddress(userDto.getAddress());
         user.setEmail(userDto.getEmail());
+        user.setUserType(userDto.getUserType());
         user.setAuthoritySet(Collections.singleton(authority));
 
         return userRepository.save(user);
