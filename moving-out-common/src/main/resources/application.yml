@@ -10,7 +10,7 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:XE # 오라클 서버(로컬 포트) 를 지정합니다.
     username: system  # 오라클 서버 유저에 맞게 설정해주세요
     password: oracle  # 비밀번호도 맞게 설정해주세요.
-    driverClassName: oracle.jdbc.driver.OracleDriver
+    driverClassName: oracle.jdbc.OracleDriver
 
   jpa:
     hibernate:
