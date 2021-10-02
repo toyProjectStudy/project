@@ -1,17 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <button @click="axiosTest">axios-test</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { TestData } from "@/api/TestModel";
 
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
   },
+  methods: {
+    axiosTest() {
+      this.axios.get<TestData>('http://localhost:3000/data/1').then(response => {
+        console.log(response.data)
+      })
+    }
+  }
 });
 </script>
 
