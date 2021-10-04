@@ -14,8 +14,19 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-console": "off",
+    // "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
+    // "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
+    "prettier/prettier": ['error', {
+      singleQuote: true,
+      semi: true,
+      useTabs: false,
+      tabWidth: 2,
+      trailingComma: 'all',
+      printWidth: 80,
+      bracketSpacing: true,
+      arrowParens: 'avoid',
+    }]
   },
   overrides: [
     {
@@ -24,7 +35,7 @@ module.exports = {
         "**/tests/unit/**/*.spec.{j,t}s?(x)",
       ],
       env: {
-        mocha: true,
+        jest: true,
       },
     },
   ],
