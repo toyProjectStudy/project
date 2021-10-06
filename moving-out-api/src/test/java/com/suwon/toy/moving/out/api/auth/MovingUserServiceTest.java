@@ -44,7 +44,7 @@ public class MovingUserServiceTest {
 
         this.authoritySet = new HashSet<>();
         this.authoritySet.add(new Authority("ROLE_USER"));
-        this.userDto = new UserDto("test1", "1234", "jay", null, "00000000",null);
+        this.userDto = new UserDto("test1", "1234", "jay", null, "00000000",null,null);
         this.savedNewUser = new MovingUser(
                 "test1",
                 "jay",
@@ -52,6 +52,7 @@ public class MovingUserServiceTest {
                 null,
                 "00000000",
                 "$2a$10$toMOBYhmDrZdi7JIzYnA6.YtbQSyxTpLo.Y4RHT50OlI6Ucn8mCQS",
+                null,
                 authoritySet
         );
     }

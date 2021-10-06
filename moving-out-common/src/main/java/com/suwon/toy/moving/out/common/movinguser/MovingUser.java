@@ -46,6 +46,9 @@ public class MovingUser {
 
     @Column(name="PASSWORD")
     private String password;
+    
+    @Column(name="USER_TYPE")
+    private String userType;
 
     @ManyToMany
     @JoinTable(
